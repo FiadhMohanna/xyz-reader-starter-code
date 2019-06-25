@@ -153,7 +153,7 @@ public class DrawInsetsFrameLayout extends FrameLayout {
         }
     }
 
-    public static interface OnInsetsCallback {
-        public void onInsetsChanged(Rect insets);
+    interface OnInsetsCallback {
+        void onInsetsChanged(Rect insets);
     }
 }

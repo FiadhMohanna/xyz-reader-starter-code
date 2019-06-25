@@ -69,16 +69,12 @@ public class ItemsProvider extends ContentProvider {
 	public Uri insert(Uri uri, ContentValues values) {
 		final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 		final int match = sUriMatcher.match(uri);
-		switch (match) {
-			case ITEMS: {
-				final long _id = db.insertOrThrow(Tables.ITEMS, null, values);
-                getContext().getContentResolver().notifyChange(uri, null);
-				return ItemsContract.Items.buildItemUri(_id);
-			}
-			default: {
-				throw new UnsupportedOperationException("Unknown uri: " + uri);
-			}
+		if (match == ITEMS) {
+			final long _id = db.insertOrThrow(Tables.ITEMS, null, values);
+			getContext().getContentResolver().notifyChange(uri, null);
+			return ItemsContract.Items.buildItemUri(_id);
 		}
+		throw new UnsupportedOperationException("Unknown uri: " + uri);
 	}
 
 	@Override
